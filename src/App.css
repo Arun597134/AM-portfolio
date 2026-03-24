@@ -1,0 +1,10 @@
+.App {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Base App structure */
+.main-content {
+  position: relative;
+  z-index: 10;
+}
