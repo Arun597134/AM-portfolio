@@ -28,7 +28,7 @@ export default function Hero() {
           <motion.a href="#projects" whileHover={{ scale: 1.05, background: 'rgba(16, 185, 129, 0.05)' }} style={{ textDecoration: 'none', background: 'transparent', color: 'var(--text-primary)', border: '1px solid var(--card-border)', padding: '14px 32px', borderRadius: '30px', fontWeight: 600, fontSize: '1rem', cursor: 'pointer', transition: 'border-color 0.3s' }}>
             View Work
           </motion.a>
-          <motion.a href="/Arun.M Resume final one .pdf" download="Arun_M_Resume.pdf" whileHover={{ scale: 1.05, background: 'rgba(0, 240, 255, 0.1)', boxShadow: '0 0 15px rgba(0, 240, 255, 0.4)' }} style={{ textDecoration: 'none', background: 'transparent', color: 'var(--cyan)', border: '1px solid var(--cyan)', padding: '14px 32px', borderRadius: '30px', fontWeight: 600, fontSize: '1rem', cursor: 'pointer', transition: 'all 0.3s', display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <motion.a href="/Arun M CV-1.pdf" download="Arun_M_Resume.pdf" whileHover={{ scale: 1.05, background: 'rgba(0, 240, 255, 0.1)', boxShadow: '0 0 15px rgba(0, 240, 255, 0.4)' }} style={{ textDecoration: 'none', background: 'transparent', color: 'var(--cyan)', border: '1px solid var(--cyan)', padding: '14px 32px', borderRadius: '30px', fontWeight: 600, fontSize: '1rem', cursor: 'pointer', transition: 'all 0.3s', display: 'flex', alignItems: 'center', gap: '8px' }}>
             <FileText size={18} />
             Download Resume
           </motion.a>
