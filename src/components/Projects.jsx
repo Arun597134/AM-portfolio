@@ -3,14 +3,28 @@ import { Bot, ExternalLink, Github } from 'lucide-react';
 
 export default function Projects() {
   const projects = [
-    {
-      id: 1,
-      title: 'AI Mock Interviewer',
-      description: 'AI-based interview simulation platform that helps users practice real-time interview scenarios with intelligent feedback and performance analysis.',
-      tags: ['Python', 'Tkinter', 'AI', 'NLP'],
-      github: 'https://github.com/AjayJ19/HireWise-AI'
-    }
-  ];
+  {
+    id: 1,
+    title: 'AI Mock Interviewer',
+    description: 'AI-based interview simulation platform that helps users practice real-time interview scenarios with intelligent feedback and performance analysis.',
+    tags: ['Python', 'Tkinter', 'AI', 'NLP'],
+    github: 'https://github.com/AjayJ19/HireWise-AI'
+  },
+  {
+    id: 2,
+    title: 'AI-Powered Online Assessment Platform',
+    description: 'Full-stack AI exam platform with real-time proctoring, cheating detection, and automated evaluation using TensorFlow.js and behavioral analysis.',
+    tags: ['React.js', 'Node.js', 'MongoDB', 'TensorFlow.js', 'AI'],
+    github: 'https://github.com/Arun597134/AI-Exam-portal'
+  },
+  {
+    id: 3,
+    title: 'MERN Learning Management System',
+    description: 'Scalable LMS with role-based access (Student, Instructor, Admin), JWT authentication, course management, and student progress tracking.',
+    tags: ['React.js', 'Node.js', 'Express.js', 'MongoDB', 'JWT'],
+    status: 'In Development'
+  }
+];
 
   return (
     <section id="projects" className="section-container" style={{ padding: '8rem 2rem' }}>
