@@ -23,6 +23,13 @@ export default function Projects() {
     description: 'Scalable LMS with role-based access (Student, Instructor, Admin), JWT authentication, course management, and student progress tracking.',
     tags: ['React.js', 'Node.js', 'Express.js', 'MongoDB', 'JWT'],
     status: 'In Development'
+  },
+  {
+    id: 4,
+    title: 'CivicFlow AI Platform',
+    description: 'A comprehensive Civic Reporting Platform featuring AI Vision for smart route handling, ML-based resolution delay prediction, "Ola-style" real-time tracking, and language localization.',
+    tags: ['React.js', 'Python', 'Flask', 'Machine Learning', 'SQLite'],
+    github: 'https://github.com/Arun597134/CivicflowAI'
   }
 ];
 
