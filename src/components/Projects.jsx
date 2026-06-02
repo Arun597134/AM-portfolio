@@ -22,7 +22,7 @@ export default function Projects() {
     title: 'MERN Learning Management System',
     description: 'Scalable LMS with role-based access (Student, Instructor, Admin), JWT authentication, course management, and student progress tracking.',
     tags: ['React.js', 'Node.js', 'Express.js', 'MongoDB', 'JWT'],
-    status: 'In Development'
+    github: 'https://github.com/Arun597134/Dakh-edu-LMS-Portal'
   },
   {
     id: 4,
