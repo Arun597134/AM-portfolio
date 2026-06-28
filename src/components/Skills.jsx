@@ -1,134 +1,120 @@
-import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { Database, Layout, Server, Cpu } from 'lucide-react';
 
 export default function Skills() {
-  const [hoveredRing, setHoveredRing] = useState(null);
-
-  const rings = [
-    { label: 'PROGRAMMING', radius: 120, skills: [{ name: 'Java', angle: 200 }, { name: 'Python', angle: 40 }] },
-    { label: 'DATABASE', radius: 200, skills: [{ name: 'SQL', angle: 100 }, { name: 'MongoDB', angle: 280 }] },
-    { label: 'BACKEND', radius: 280, skills: [{ name: 'Node.js', angle: 160 }] },
-    { label: 'FRONTEND', radius: 380, skills: [{ name: 'HTML', angle: 90 }, { name: 'CSS', angle: 180 }, { name: 'JS', angle: 270 }, { name: 'React.js', angle: 360 }] }
+  const skillCategories = [
+    {
+      id: 1,
+      title: 'PROGRAMMING',
+      icon: <Cpu size={20} color="var(--accent-green)" />,
+      skills: ['Java', 'Python', 'C', 'Data Structures']
+    },
+    {
+      id: 2,
+      title: 'DATABASE',
+      icon: <Database size={20} color="var(--accent-green)" />,
+      skills: ['SQL', 'MongoDB', 'PostgreSQL', 'Database Design']
+    },
+    {
+      id: 3,
+      title: 'BACKEND',
+      icon: <Server size={20} color="var(--accent-green)" />,
+      skills: ['Node.js', 'Express.js', 'REST APIs', 'JWT Auth']
+    },
+    {
+      id: 4,
+      title: 'FRONTEND',
+      icon: <Layout size={20} color="var(--accent-green)" />,
+      skills: ['React.js', 'HTML5', 'CSS3', 'JavaScript', 'TailwindCSS']
+    }
   ];
 
   return (
-    <section id="skills" className="section-container" style={{ padding: '8rem 2rem', overflow: 'hidden' }}>
-      <div className="skills-orbit-container" style={{ position: 'relative', width: '100%', height: '800px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        
-        {/* Orbit Rings */}
-        {rings.map((ring, idx) => {
-          const isPaused = hoveredRing === ring.label;
-          const playState = isPaused ? 'paused' : 'running';
-          const duration = 30 + idx * 8;
+    <section id="skills" className="section-container" style={{ padding: '8rem 2rem' }}>
+      <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+        <div className="section-subtitle">MY TOOLKIT</div>
+        <h2 className="section-title gradient-title" style={{ marginTop: '0.5rem', marginBottom: '0.5rem' }}>
+          <span>Technical</span> <span>Skills</span>
+        </h2>
+        <p style={{ color: 'var(--text-secondary)', letterSpacing: '1px' }}>Technologies, frameworks, and programming languages I use</p>
+      </div>
 
-          return (
-            <div
-              key={ring.label}
-              style={{
-                position: 'absolute',
-                top: '50%', left: '50%',
-                transform: 'translate(-50%, -50%)',
-                width: `${ring.radius * 2}px`,
-                height: `${ring.radius * 2}px`,
-                border: '1px solid rgba(16, 185, 129, 0.2)',
-                borderRadius: '50%',
-                zIndex: 1,
-                display: 'flex',
-                justifyContent: 'center',
-                pointerEvents: 'none'
-              }}
-            >
-              {/* The Label Pill */}
-              <div style={{
-                position: 'absolute',
-                top: '-12px',
-                left: '50%',
-                transform: 'translateX(-50%)',
-                background: 'var(--bg-color)',
-                padding: '0 15px',
-                border: '1px solid var(--card-border)',
-                borderRadius: '20px',
-                fontSize: '0.8rem',
-                fontWeight: 800,
-                letterSpacing: '1px',
-                color: 'var(--text-primary)',
-                zIndex: 15
-              }}>
-                {ring.label}
+      <div style={{ 
+        display: 'grid', 
+        gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', 
+        gap: '1.5rem',
+        maxWidth: '1200px',
+        margin: '0 auto'
+      }}>
+        {skillCategories.map((category, index) => (
+          <motion.div
+            key={category.id}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+            className="glass-panel"
+            style={{
+              background: 'var(--card-bg)',
+              border: '1px solid var(--card-border)',
+              borderRadius: '12px',
+              padding: '2rem',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '1.5rem',
+              boxShadow: '0 4px 6px rgba(0, 0, 0, 0.02)',
+              transition: 'border-color 0.3s'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.borderColor = 'var(--accent-green)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.borderColor = 'var(--card-border)';
+            }}
+          >
+            {/* Category Header */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
+              <div style={{ background: 'var(--accent-green-bg)', padding: '8px', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                {category.icon}
               </div>
-
-              {/* Orbiting nodes wrapper (Ring Rotation) */}
-              <div
-                style={{ 
-                  position: 'absolute', 
-                  width: '100%', 
-                  height: '100%',
-                  animation: `spin ${duration}s linear infinite`,
-                  animationPlayState: playState
-                }}
-              >
-                {ring.skills.map(skill => {
-                  const rad = skill.angle * (Math.PI / 180);
-                  const x = Math.cos(rad) * ring.radius;
-                  const y = Math.sin(rad) * ring.radius;
-
-                  return (
-                    <motion.div
-                      key={skill.name}
-                      onHoverStart={() => setHoveredRing(ring.label)}
-                      onHoverEnd={() => setHoveredRing(null)}
-                      onTouchStart={() => setHoveredRing(ring.label)}
-                      onTouchEnd={() => setHoveredRing(null)}
-                      style={{
-                        position: 'absolute',
-                        left: `${ring.radius + x - 40}px`,
-                        top: `${ring.radius + y - 40}px`,
-                        width: '80px', height: '80px',
-                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        background: 'var(--card-bg)', // Dynamic theme support
-                        border: '1px solid rgba(16, 185, 129, 0.5)', borderRadius: '50%',
-                        fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-primary)', textAlign: 'center',
-                        boxShadow: '0 0 15px rgba(16, 185, 129, 0.4), inset 0 0 10px rgba(16, 185, 129, 0.2)',
-                        zIndex: 10,
-                        cursor: 'pointer',
-                        pointerEvents: 'auto',
-                        animation: `spin-reverse ${duration}s linear infinite`,
-                        animationPlayState: playState
-                      }}
-                      whileHover={{
-                        scale: 1.3,
-                        boxShadow: '0 0 30px rgba(16, 185, 129, 1), 0 0 50px rgba(16, 185, 129, 0.8), inset 0 0 20px rgba(16, 185, 129, 0.6)',
-                        background: 'rgba(16, 185, 129, 0.15)',
-                        color: 'var(--cyan)'
-                      }}
-                      whileTap={{
-                        scale: 1.4,
-                        boxShadow: '0 0 30px rgba(16, 185, 129, 1), 0 0 50px rgba(16, 185, 129, 0.8), inset 0 0 20px rgba(16, 185, 129, 0.6)',
-                        background: 'rgba(16, 185, 129, 0.15)',
-                        color: 'var(--cyan)'
-                      }}
-                    >
-                      {skill.name}
-                    </motion.div>
-                  );
-                })}
-              </div>
+              <h3 style={{ fontSize: '1.1rem', color: 'var(--text-primary)', fontWeight: 800, letterSpacing: '0.5px' }}>
+                {category.title}
+              </h3>
             </div>
-          );
-        })}
 
-        {/* Center Node */}
-        <motion.div 
-           className="glass-panel"
-           style={{ 
-             width: '90px', height: '90px', borderRadius: '50%', zIndex: 20, display: 'flex', alignItems: 'center', justifyContent: 'center',
-             background: 'var(--bg-color)', border: '2px solid var(--accent-green)', fontWeight: 800, color: 'var(--text-primary)', fontSize: '1.2rem',
-             boxShadow: '0 0 40px var(--accent-green), 0 0 80px var(--accent-green), inset 0 0 20px rgba(16, 185, 129, 0.3)', textShadow: '0 0 5px var(--accent-green)', padding: 0
-           }}
-        >
-          CORE
-        </motion.div>
-
+            {/* Skills List */}
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.6rem' }}>
+              {category.skills.map((skill) => (
+                <span
+                  key={skill}
+                  style={{
+                    background: 'var(--bg-color)',
+                    border: '1px solid var(--card-border)',
+                    color: 'var(--text-primary)',
+                    padding: '6px 12px',
+                    borderRadius: '8px',
+                    fontSize: '0.85rem',
+                    fontWeight: 500,
+                    transition: 'all 0.2s',
+                    cursor: 'default'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = 'var(--accent-green)';
+                    e.currentTarget.style.color = 'var(--accent-green)';
+                    e.currentTarget.style.background = 'var(--accent-green-bg)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = 'var(--card-border)';
+                    e.currentTarget.style.color = 'var(--text-primary)';
+                    e.currentTarget.style.background = 'var(--bg-color)';
+                  }}
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </motion.div>
+        ))}
       </div>
     </section>
   );
