@@ -44,11 +44,11 @@ export default function Contact() {
     }
     .contact-input {
       width: 100%;
-      background: rgba(255, 255, 255, 0.02);
+      background: var(--bg-color);
       border: 1px solid var(--card-border);
       border-radius: 8px;
       padding: 14px 16px;
-      color: #fff;
+      color: var(--text-primary);
       font-size: 0.95rem;
       transition: all 0.3s;
       outline: none;
@@ -56,8 +56,7 @@ export default function Contact() {
     }
     .contact-input:focus {
       border-color: var(--accent-green);
-      box-shadow: 0 0 15px rgba(16, 185, 129, 0.25);
-      background: rgba(255, 255, 255, 0.04);
+      background: var(--card-bg);
     }
     .contact-label {
       font-size: 0.85rem;
@@ -103,16 +102,16 @@ export default function Contact() {
       <div className="contact-grid">
         {/* Left Panel: Contact info & Socials */}
         <motion.div 
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
           className="glass-panel" 
-          style={{ display: 'flex', flexDirection: 'column', padding: '2.5rem', justifyContent: 'space-between' }}
+          style={{ display: 'flex', flexDirection: 'column', padding: '2.5rem', justifyContent: 'space-between', background: 'var(--card-bg)', border: '1px solid var(--card-border)' }}
         >
           <div>
             <span style={{ color: 'var(--accent-green)', fontWeight: 'bold', fontSize: '0.8rem', letterSpacing: '2px', textTransform: 'uppercase' }}>Connect</span>
-            <h3 style={{ fontSize: '1.8rem', color: '#fff', fontWeight: 700, marginTop: '0.5rem', marginBottom: '1.5rem' }}>Contact Info</h3>
+            <h3 style={{ fontSize: '1.8rem', color: 'var(--text-primary)', fontWeight: 700, marginTop: '0.5rem', marginBottom: '1.5rem' }}>Contact Info</h3>
             
             <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', lineHeight: '1.6', marginBottom: '2.5rem' }}>
               Have an exciting idea or project you want to collaborate on? Feel free to drop a message in the form or reach out through email.
@@ -121,26 +120,25 @@ export default function Contact() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', marginBottom: '3rem' }}>
               {/* Email item */}
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                <div style={{ background: 'rgba(16, 185, 129, 0.1)', border: '1px solid rgba(16, 185, 129, 0.2)', width: '48px', height: '48px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                <div style={{ background: 'var(--accent-green-bg)', border: '1px solid var(--card-border)', width: '48px', height: '48px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                   <Mail size={20} color="var(--accent-green)" />
                 </div>
                 <div style={{ overflow: 'hidden' }}>
                   <span style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-secondary)', fontWeight: 600, letterSpacing: '0.5px' }}>EMAIL ME</span>
-                  <a href="mailto:arun.m.dev06@gmail.com" style={{ fontSize: '1rem', color: '#fff', fontWeight: 500, transition: 'color 0.2s', wordBreak: 'break-all' }} onMouseEnter={(e) => e.currentTarget.style.color = 'var(--accent-green)'} onMouseLeave={(e) => e.currentTarget.style.color = '#fff'}>
+                  <a href="mailto:arun.m.dev06@gmail.com" style={{ fontSize: '1rem', color: 'var(--text-primary)', fontWeight: 500, transition: 'color 0.2s', wordBreak: 'break-all' }} onMouseEnter={(e) => e.currentTarget.style.color = 'var(--accent-green)'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-primary)'}>
                     arun.m.dev06@gmail.com
                   </a>
                 </div>
                 <button 
                   onClick={handleCopyEmail}
                   style={{
-                    marginLeft: 'auto', background: 'rgba(255,255,255,0.05)', border: '1px solid var(--card-border)', color: copied ? 'var(--accent-green)' : 'var(--text-secondary)', fontSize: '0.75rem', padding: '6px 12px', borderRadius: '6px', cursor: 'pointer', fontWeight: 600, flexShrink: 0, transition: 'all 0.2s'
+                    marginLeft: 'auto', background: 'var(--bg-color)', border: '1px solid var(--card-border)', color: copied ? 'var(--accent-green)' : 'var(--text-secondary)', fontSize: '0.75rem', padding: '6px 12px', borderRadius: '6px', cursor: 'pointer', fontWeight: 600, flexShrink: 0, transition: 'all 0.2s'
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.background = 'rgba(255,255,255,0.1)';
-                    if (!copied) e.currentTarget.style.color = '#fff';
+                    e.currentTarget.style.background = 'var(--card-bg)';
+                    if (!copied) e.currentTarget.style.color = 'var(--text-primary)';
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
                     if (!copied) e.currentTarget.style.color = 'var(--text-secondary)';
                   }}
                 >
@@ -150,12 +148,12 @@ export default function Contact() {
 
               {/* Location item */}
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                <div style={{ background: 'rgba(0, 240, 255, 0.1)', border: '1px solid rgba(0, 240, 255, 0.2)', width: '48px', height: '48px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                  <MapPin size={20} color="var(--cyan)" />
+                <div style={{ background: 'var(--accent-green-bg)', border: '1px solid var(--card-border)', width: '48px', height: '48px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <MapPin size={20} color="var(--accent-green)" />
                 </div>
                 <div>
                   <span style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-secondary)', fontWeight: 600, letterSpacing: '0.5px' }}>MY LOCATION</span>
-                  <span style={{ fontSize: '1rem', color: '#fff', fontWeight: 500 }}>Tamil Nadu, India</span>
+                  <span style={{ fontSize: '1rem', color: 'var(--text-primary)', fontWeight: 500 }}>Tamil Nadu, India</span>
                 </div>
               </div>
             </div>
@@ -170,7 +168,7 @@ export default function Contact() {
                 target="_blank" 
                 rel="noreferrer" 
                 className="social-btn"
-                whileHover={{ scale: 1.1, color: 'var(--accent-green)', borderColor: 'var(--accent-green)', boxShadow: '0 0 15px rgba(16, 185, 129, 0.3)' }}
+                whileHover={{ scale: 1.05, color: 'var(--accent-green)', borderColor: 'var(--accent-green)' }}
               >
                 <Github size={20} />
               </motion.a>
@@ -179,7 +177,7 @@ export default function Contact() {
                 target="_blank" 
                 rel="noreferrer" 
                 className="social-btn"
-                whileHover={{ scale: 1.1, color: 'var(--accent-green)', borderColor: 'var(--accent-green)', boxShadow: '0 0 15px rgba(16, 185, 129, 0.3)' }}
+                whileHover={{ scale: 1.05, color: 'var(--accent-green)', borderColor: 'var(--accent-green)' }}
               >
                 <Linkedin size={20} />
               </motion.a>
@@ -189,12 +187,12 @@ export default function Contact() {
 
         {/* Right Panel: Interactive contact form */}
         <motion.div 
-          initial={{ opacity: 0, x: 30 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
           className="glass-panel" 
-          style={{ padding: '2.5rem', display: 'flex', flexDirection: 'column' }}
+          style={{ padding: '2.5rem', display: 'flex', flexDirection: 'column', background: 'var(--card-bg)', border: '1px solid var(--card-border)' }}
         >
           <AnimatePresence mode="wait">
             {!isSuccess ? (
@@ -202,12 +200,12 @@ export default function Contact() {
                 key="contact-form"
                 onSubmit={handleSubmit}
                 initial={{ opacity: 1 }}
-                exit={{ opacity: 0, y: -20 }}
+                exit={{ opacity: 0, y: -10 }}
                 style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem', height: '100%' }}
               >
                 <div style={{ marginBottom: '0.5rem' }}>
                   <span style={{ color: 'var(--accent-green)', fontWeight: 'bold', fontSize: '0.8rem', letterSpacing: '2px', textTransform: 'uppercase' }}>Direct Msg</span>
-                  <h3 style={{ fontSize: '1.8rem', color: '#fff', fontWeight: 700, marginTop: '0.5rem' }}>Send a Message</h3>
+                  <h3 style={{ fontSize: '1.8rem', color: 'var(--text-primary)', fontWeight: 700, marginTop: '0.5rem' }}>Send a Message</h3>
                 </div>
 
                 <div>
@@ -256,10 +254,10 @@ export default function Contact() {
                 <motion.button 
                   type="submit" 
                   disabled={isSubmitting}
-                  whileHover={{ scale: 1.03, boxShadow: '0 0 20px rgba(16, 185, 129, 0.4)' }}
+                  whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   style={{
-                    background: 'var(--accent-green)', color: '#000', border: 'none', borderRadius: '8px', padding: '14px 20px', fontSize: '1rem', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginTop: '0.5rem', transition: 'background 0.2s', opacity: isSubmitting ? 0.7 : 1
+                    background: 'var(--accent-green)', color: '#fff', border: 'none', borderRadius: '8px', padding: '14px 20px', fontSize: '1rem', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginTop: '0.5rem', transition: 'background 0.2s', opacity: isSubmitting ? 0.7 : 1
                   }}
                   onMouseEnter={(e) => e.currentTarget.style.background = 'var(--accent-green-hover)'}
                   onMouseLeave={(e) => e.currentTarget.style.background = 'var(--accent-green)'}
@@ -270,20 +268,15 @@ export default function Contact() {
             ) : (
               <motion.div 
                 key="success-message"
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', height: '100%', padding: '3rem 1rem' }}
               >
-                <motion.div
-                  initial={{ scale: 0.5 }}
-                  animate={{ scale: [1, 1.2, 1] }}
-                  transition={{ duration: 0.5 }}
-                  style={{ marginBottom: '1.5rem' }}
-                >
+                <div style={{ marginBottom: '1.5rem' }}>
                   <CheckCircle2 size={64} color="var(--accent-green)" />
-                </motion.div>
+                </div>
                 
-                <h3 style={{ fontSize: '1.8rem', color: '#fff', fontWeight: 700, marginBottom: '1rem' }}>Message Sent!</h3>
+                <h3 style={{ fontSize: '1.8rem', color: 'var(--text-primary)', fontWeight: 700, marginBottom: '1rem' }}>Message Sent!</h3>
                 
                 <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', lineHeight: '1.6', maxWidth: '350px', marginBottom: '2.5rem' }}>
                   Thank you for reaching out! Your message has been successfully sent. I will get back to you as soon as possible.
@@ -291,12 +284,10 @@ export default function Contact() {
 
                 <motion.button 
                   onClick={() => setIsSuccess(false)}
-                  whileHover={{ scale: 1.05 }}
+                  whileHover={{ scale: 1.02 }}
                   style={{
-                    background: 'rgba(255, 255, 255, 0.05)', border: '1px solid var(--card-border)', color: '#fff', borderRadius: '8px', padding: '10px 24px', fontSize: '0.9rem', fontWeight: 600, cursor: 'pointer', transition: 'background 0.2s'
+                    background: 'var(--bg-color)', border: '1px solid var(--card-border)', color: 'var(--text-primary)', borderRadius: '8px', padding: '10px 24px', fontSize: '0.9rem', fontWeight: 600, cursor: 'pointer', transition: 'background 0.2s'
                   }}
-                  onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)'}
-                  onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)'}
                 >
                   Send another message
                 </motion.button>
@@ -308,7 +299,7 @@ export default function Contact() {
 
       {/* Footer */}
       <div style={{ 
-        borderTop: '1px solid rgba(255,255,255,0.05)', 
+        borderTop: '1px solid var(--card-border)', 
         paddingTop: '2rem', 
         display: 'flex', 
         justifyContent: 'space-between', 

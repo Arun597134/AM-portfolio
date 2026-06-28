@@ -1,16 +1,15 @@
 import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Bot, ExternalLink, Github, MessageSquare, Globe, BookOpen, Award, Play, Info, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Bot, ExternalLink, Github, MessageSquare, Globe, BookOpen, Award, Play, ChevronLeft, ChevronRight } from 'lucide-react';
 
 function ProjectCard({ project }) {
   return (
     <motion.div
       whileHover={{ 
-        scale: 1.05,
-        boxShadow: `0 15px 30px rgba(0, 0, 0, 0.6), 0 0 15px ${project.color}33`,
-        borderColor: project.color || 'var(--cyan)'
+        scale: 1.02,
+        boxShadow: '0 10px 25px rgba(0, 0, 0, 0.05)',
       }}
-      transition={{ duration: 0.3 }}
+      transition={{ duration: 0.25 }}
       style={{
         width: '320px',
         height: '380px',
@@ -24,6 +23,12 @@ function ProjectCard({ project }) {
         cursor: 'pointer',
         transition: 'border-color 0.3s, box-shadow 0.3s',
       }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.borderColor = 'var(--accent-green)';
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.borderColor = 'var(--card-border)';
+      }}
     >
       {/* Cover Image / Gradient */}
       <div style={{
@@ -35,20 +40,21 @@ function ProjectCard({ project }) {
         alignItems: 'flex-end',
         position: 'relative',
         padding: '1rem',
+        borderBottom: '1px solid var(--card-border)'
       }}>
-        {/* Deep overlay to make title readable */}
+        {/* Overlay to ensure readability */}
         <div style={{
           position: 'absolute',
           inset: 0,
-          background: 'linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%)',
+          background: 'linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.7) 100%)',
           zIndex: 1
         }} />
         
         <div style={{ zIndex: 2, display: 'flex', alignItems: 'center', gap: '0.6rem', width: '100%' }}>
           <div style={{ background: 'rgba(0,0,0,0.6)', width: '32px', height: '32px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-            <project.icon size={18} color={project.color || 'var(--cyan)'} />
+            <project.icon size={18} color="var(--accent-green)" />
           </div>
-          <h4 style={{ fontSize: '1.15rem', fontWeight: 700, color: '#fff', textShadow: '0 2px 4px rgba(0,0,0,0.9)' }}>{project.title}</h4>
+          <h4 style={{ fontSize: '1.15rem', fontWeight: 700, color: '#fff', textShadow: '0 2px 4px rgba(0,0,0,0.8)' }}>{project.title}</h4>
         </div>
       </div>
 
@@ -56,9 +62,9 @@ function ProjectCard({ project }) {
       <div style={{ padding: '1.2rem', display: 'flex', flexDirection: 'column', gap: '0.8rem', flexGrow: 1 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', fontSize: '0.85rem' }}>
-            <span style={{ color: '#46d369', fontWeight: 'bold' }}>{project.match} Match</span>
+            <span style={{ color: 'var(--accent-green)', fontWeight: 'bold' }}>{project.match} Match</span>
             <span style={{ color: 'var(--text-secondary)' }}>{project.year}</span>
-            <span style={{ border: '1px solid rgba(255,255,255,0.4)', padding: '1px 5px', borderRadius: '3px', fontSize: '0.7rem', color: 'var(--text-secondary)', fontWeight: 600 }}>{project.type}</span>
+            <span style={{ border: '1px solid var(--card-border)', padding: '1px 5px', borderRadius: '3px', fontSize: '0.7rem', color: 'var(--text-secondary)', fontWeight: 600 }}>{project.type}</span>
           </div>
         </div>
 
@@ -80,7 +86,7 @@ function ProjectCard({ project }) {
         {/* Tech tags */}
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', margin: '0.4rem 0' }}>
           {project.tags.map(tag => (
-            <span key={tag} style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: 'var(--text-secondary)', padding: '3px 8px', borderRadius: '12px', fontSize: '0.75rem' }}>
+            <span key={tag} style={{ background: 'var(--accent-green-bg)', border: '1px solid rgba(16,185,129,0.1)', color: 'var(--accent-green)', padding: '3px 8px', borderRadius: '12px', fontSize: '0.75rem', fontWeight: 500 }}>
               {tag}
             </span>
           ))}
@@ -90,19 +96,19 @@ function ProjectCard({ project }) {
         <div style={{ 
           display: 'flex', 
           justifyContent: 'flex-end', 
-          gap: '0.8rem', 
+          gap: '1rem', 
           borderTop: '1px solid var(--card-border)', 
           paddingTop: '0.8rem',
           marginTop: 'auto'
         }}>
           {project.github && (
-            <a href={project.github} target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.85rem', color: 'var(--text-secondary)', transition: 'color 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.color = '#fff'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-secondary)'}>
-              <Github size={16} /> Code
+            <a href={project.github} target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.85rem', color: 'var(--text-secondary)', transition: 'color 0.2s', fontWeight: 500 }} onMouseEnter={(e) => e.currentTarget.style.color = 'var(--text-primary)'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-secondary)'}>
+              <Github size={15} /> Code
             </a>
           )}
           {project.link && (
-            <a href={project.link} target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.85rem', color: 'var(--text-secondary)', transition: 'color 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.color = '#fff'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-secondary)'}>
-              <ExternalLink size={16} /> Live
+            <a href={project.link} target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.85rem', color: 'var(--text-secondary)', transition: 'color 0.2s', fontWeight: 500 }} onMouseEnter={(e) => e.currentTarget.style.color = 'var(--text-primary)'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-secondary)'}>
+              <ExternalLink size={15} /> Live
             </a>
           )}
         </div>
@@ -147,11 +153,10 @@ function ProjectRow({ title, projects }) {
               top: 0,
               bottom: 0,
               width: '45px',
-              background: 'rgba(0,0,0,0.6)',
-              backdropFilter: 'blur(4px)',
-              border: 'none',
+              background: 'var(--card-bg)',
+              borderRight: '1px solid var(--card-border)',
               zIndex: 10,
-              color: '#fff',
+              color: 'var(--text-primary)',
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
@@ -159,11 +164,10 @@ function ProjectRow({ title, projects }) {
               borderTopRightRadius: '6px',
               borderBottomRightRadius: '6px',
               transition: 'background 0.2s',
+              boxShadow: '0 4px 10px rgba(0,0,0,0.1)'
             }}
-            onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(0,0,0,0.85)'}
-            onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(0,0,0,0.6)'}
           >
-            <ChevronLeft size={30} />
+            <ChevronLeft size={24} />
           </button>
         )}
 
@@ -174,7 +178,7 @@ function ProjectRow({ title, projects }) {
             display: 'flex',
             overflowX: 'auto',
             gap: '1.5rem',
-            padding: '1.5rem 0.5rem 2rem 0.5rem',
+            padding: '1rem 0.5rem 2rem 0.5rem',
             scrollbarWidth: 'none',
             msOverflowStyle: 'none',
           }}
@@ -199,11 +203,10 @@ function ProjectRow({ title, projects }) {
             top: 0,
             bottom: 0,
             width: '45px',
-            background: 'rgba(0,0,0,0.6)',
-            backdropFilter: 'blur(4px)',
-            border: 'none',
+            background: 'var(--card-bg)',
+            borderLeft: '1px solid var(--card-border)',
             zIndex: 10,
-            color: '#fff',
+            color: 'var(--text-primary)',
             cursor: 'pointer',
             display: 'flex',
             alignItems: 'center',
@@ -211,11 +214,10 @@ function ProjectRow({ title, projects }) {
             borderTopLeftRadius: '6px',
             borderBottomLeftRadius: '6px',
             transition: 'background 0.2s',
+            boxShadow: '0 4px 10px rgba(0,0,0,0.1)'
           }}
-          onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(0,0,0,0.85)'}
-          onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(0,0,0,0.6)'}
         >
-          <ChevronRight size={30} />
+          <ChevronRight size={24} />
         </button>
       </div>
     </div>
@@ -233,26 +235,27 @@ function FeaturedBanner({ project }) {
         borderRadius: '16px',
         overflow: 'hidden',
         marginBottom: '5rem',
-        backgroundImage: project.image ? `url(${project.image})` : (project.gradient || 'linear-gradient(135deg, #e50914 0%, #000 100%)'),
+        backgroundImage: project.image ? `url(${project.image})` : (project.gradient || 'linear-gradient(135deg, #1f1f23 0%, #111 100%)'),
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         display: 'flex',
         alignItems: 'flex-end',
         padding: '4rem',
-        boxShadow: 'inset 0 0 120px rgba(0,0,0,0.9)',
+        border: '1px solid var(--card-border)',
       }}
     >
+      {/* Deep overlay to make content readable and adapt to dark/light */}
       <div style={{
         position: 'absolute',
         inset: 0,
-        background: 'linear-gradient(to top, rgba(10, 10, 13, 1) 0%, rgba(10, 10, 13, 0.4) 60%, rgba(0, 0, 0, 0.4) 100%)',
+        background: 'linear-gradient(to top, var(--bg-color) 0%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0.4) 100%)',
         zIndex: 1,
       }} />
 
       <div className="featured-content" style={{ zIndex: 2, maxWidth: '650px', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
-          <span style={{ background: '#e50914', color: '#fff', fontSize: '0.8rem', fontWeight: 900, padding: '3px 8px', borderRadius: '3px', letterSpacing: '1px' }}>N</span>
-          <span style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--text-secondary)', letterSpacing: '2px' }}>FEATURED PROJECT</span>
+          <span style={{ background: 'var(--accent-green)', color: 'var(--bg-color)', fontSize: '0.8rem', fontWeight: 900, padding: '3px 8px', borderRadius: '3px', letterSpacing: '1px' }}>N</span>
+          <span style={{ fontSize: '0.9rem', fontWeight: 600, color: '#fff', letterSpacing: '2px', textShadow: '0 1px 4px rgba(0,0,0,0.5)' }}>FEATURED PROJECT</span>
         </div>
         
         <h1 className="featured-title" style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontWeight: 800, color: '#fff', lineHeight: '1.1', textShadow: '0 2px 10px rgba(0,0,0,0.8)' }}>
@@ -261,9 +264,9 @@ function FeaturedBanner({ project }) {
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', fontSize: '0.95rem' }}>
           <span style={{ color: '#46d369', fontWeight: 'bold' }}>{project.match} Match</span>
-          <span style={{ color: '#fff', fontWeight: 500 }}>{project.year}</span>
-          <span style={{ background: 'rgba(255,255,255,0.2)', padding: '2px 6px', borderRadius: '4px', fontSize: '0.75rem', fontWeight: 'bold' }}>{project.type}</span>
-          <span style={{ color: 'var(--cyan)', fontWeight: 600 }}>Top Pick</span>
+          <span style={{ color: '#fff', fontWeight: 500, textShadow: '0 1px 4px rgba(0,0,0,0.5)' }}>{project.year}</span>
+          <span style={{ background: 'rgba(255,255,255,0.2)', color: '#fff', padding: '2px 6px', borderRadius: '4px', fontSize: '0.75rem', fontWeight: 'bold' }}>{project.type}</span>
+          <span style={{ color: 'var(--cyan)', fontWeight: 600, textShadow: '0 1px 4px rgba(0,0,0,0.5)' }}>Top Pick</span>
         </div>
 
         <p className="featured-desc" style={{ color: 'rgba(255,255,255,0.95)', fontSize: '1.1rem', lineHeight: '1.6', textShadow: '0 1px 3px rgba(0,0,0,0.8)' }}>
@@ -280,18 +283,18 @@ function FeaturedBanner({ project }) {
                 display: 'flex',
                 alignItems: 'center',
                 gap: '8px',
-                background: '#fff',
-                color: '#000',
+                background: 'var(--text-primary)',
+                color: 'var(--bg-color)',
                 padding: '12px 28px',
                 borderRadius: '6px',
                 fontWeight: 700,
                 fontSize: '1rem',
-                transition: 'background 0.2s',
+                transition: 'opacity 0.2s',
               }}
-              onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.85)'}
-              onMouseLeave={(e) => e.currentTarget.style.background = '#fff'}
+              onMouseEnter={(e) => e.currentTarget.style.opacity = 0.9}
+              onMouseLeave={(e) => e.currentTarget.style.opacity = 1}
             >
-              <Play size={18} fill="#000" /> Watch Demo
+              <Play size={18} fill="currentColor" /> Watch Demo
             </a>
           )}
           {project.github && (
@@ -303,17 +306,18 @@ function FeaturedBanner({ project }) {
                 display: 'flex',
                 alignItems: 'center',
                 gap: '8px',
-                background: 'rgba(109, 109, 110, 0.7)',
+                background: 'rgba(255, 255, 255, 0.15)',
                 color: '#fff',
                 padding: '12px 28px',
                 borderRadius: '6px',
                 fontWeight: 700,
                 fontSize: '1rem',
                 backdropFilter: 'blur(4px)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
                 transition: 'background 0.2s',
               }}
-              onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(109, 109, 110, 0.4)'}
-              onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(109, 109, 110, 0.7)'}
+              onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.25)'}
+              onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.15)'}
             >
               <Github size={18} /> GitHub Code
             </a>
@@ -405,6 +409,9 @@ export default function Projects() {
   ];
 
   const responsiveStyles = `
+    .featured-banner {
+      background-color: var(--card-bg) !important;
+    }
     @media (max-width: 768px) {
       .featured-banner {
         padding: 2.5rem 1.5rem !important;
