@@ -1,118 +1,112 @@
 import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Bot, ExternalLink, Github, Film, Globe, BookOpen, Award, Play, Info, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Bot, ExternalLink, Github, MessageSquare, Globe, BookOpen, Award, Play, Info, ChevronLeft, ChevronRight } from 'lucide-react';
 
 function ProjectCard({ project }) {
-  const [isHovered, setIsHovered] = useState(false);
-
   return (
     <motion.div
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      whileHover={{ 
+        scale: 1.05,
+        boxShadow: `0 15px 30px rgba(0, 0, 0, 0.6), 0 0 15px ${project.color}33`,
+        borderColor: project.color || 'var(--cyan)'
+      }}
+      transition={{ duration: 0.3 }}
       style={{
-        position: 'relative',
         width: '320px',
-        height: '180px',
+        height: '380px',
         flexShrink: 0,
-        borderRadius: '10px',
+        background: 'var(--card-bg)',
+        border: '1px solid var(--card-border)',
+        borderRadius: '12px',
+        overflow: 'hidden',
+        display: 'flex',
+        flexDirection: 'column',
         cursor: 'pointer',
-        zIndex: isHovered ? 50 : 1,
+        transition: 'border-color 0.3s, box-shadow 0.3s',
       }}
     >
-      <motion.div
-        animate={{
-          scale: isHovered ? 1.15 : 1,
-          y: isHovered ? -20 : 0,
-          boxShadow: isHovered 
-            ? '0 20px 30px rgba(0, 0, 0, 0.9), 0 10px 15px rgba(0, 0, 0, 0.7)' 
-            : '0 4px 6px rgba(0, 0, 0, 0.3)',
-        }}
-        transition={{ duration: 0.3, ease: 'easeInOut' }}
-        style={{
-          width: '100%',
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          background: 'var(--card-bg)',
-          border: '1px solid var(--card-border)',
-          borderRadius: '10px',
-          overflow: 'hidden',
-          display: 'flex',
-          flexDirection: 'column',
-        }}
-      >
-        {/* Cover Image / Gradient */}
+      {/* Cover Image / Gradient */}
+      <div style={{
+        height: '160px',
+        backgroundImage: project.image ? `url(${project.image})` : (project.gradient || 'linear-gradient(135deg, #1f1f23 0%, #111 100%)'),
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        display: 'flex',
+        alignItems: 'flex-end',
+        position: 'relative',
+        padding: '1rem',
+      }}>
+        {/* Deep overlay to make title readable */}
         <div style={{
-          height: '150px',
-          backgroundImage: project.image ? `url(${project.image})` : (project.gradient || 'linear-gradient(135deg, #1f1f23 0%, #111 100%)'),
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          display: 'flex',
-          alignItems: 'flex-end',
-          position: 'relative',
-          padding: '1.2rem',
+          position: 'absolute',
+          inset: 0,
+          background: 'linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%)',
+          zIndex: 1
+        }} />
+        
+        <div style={{ zIndex: 2, display: 'flex', alignItems: 'center', gap: '0.6rem', width: '100%' }}>
+          <div style={{ background: 'rgba(0,0,0,0.6)', width: '32px', height: '32px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+            <project.icon size={18} color={project.color || 'var(--cyan)'} />
+          </div>
+          <h4 style={{ fontSize: '1.15rem', fontWeight: 700, color: '#fff', textShadow: '0 2px 4px rgba(0,0,0,0.9)' }}>{project.title}</h4>
+        </div>
+      </div>
+
+      {/* Info panel */}
+      <div style={{ padding: '1.2rem', display: 'flex', flexDirection: 'column', gap: '0.8rem', flexGrow: 1 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', fontSize: '0.85rem' }}>
+            <span style={{ color: '#46d369', fontWeight: 'bold' }}>{project.match} Match</span>
+            <span style={{ color: 'var(--text-secondary)' }}>{project.year}</span>
+            <span style={{ border: '1px solid rgba(255,255,255,0.4)', padding: '1px 5px', borderRadius: '3px', fontSize: '0.7rem', color: 'var(--text-secondary)', fontWeight: 600 }}>{project.type}</span>
+          </div>
+        </div>
+
+        {/* Project Description */}
+        <p style={{ 
+          fontSize: '0.9rem', 
+          color: 'var(--text-secondary)', 
+          lineHeight: '1.5', 
+          margin: 0, 
+          flexGrow: 1,
+          overflow: 'hidden',
+          display: '-webkit-box',
+          WebkitLineClamp: 3,
+          WebkitBoxOrient: 'vertical'
         }}>
-          {/* Deep overlay to make title readable */}
-          <div style={{
-            position: 'absolute',
-            inset: 0,
-            background: 'linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%)',
-            zIndex: 1
-          }} />
-          
-          <div style={{ zIndex: 2, display: 'flex', alignItems: 'center', gap: '0.6rem', width: '100%' }}>
-            <div style={{ background: 'rgba(0,0,0,0.6)', width: '32px', height: '32px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-              <project.icon size={18} color={project.color || 'var(--cyan)'} />
-            </div>
-            <h4 style={{ fontSize: '1.15rem', fontWeight: 700, color: '#fff', textShadow: '0 2px 4px rgba(0,0,0,0.9)' }}>{project.title}</h4>
-          </div>
+          {project.description}
+        </p>
+
+        {/* Tech tags */}
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', margin: '0.4rem 0' }}>
+          {project.tags.map(tag => (
+            <span key={tag} style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: 'var(--text-secondary)', padding: '3px 8px', borderRadius: '12px', fontSize: '0.75rem' }}>
+              {tag}
+            </span>
+          ))}
         </div>
 
-        {/* Info panel */}
-        <div style={{ padding: '1.2rem', display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', fontSize: '0.85rem' }}>
-              <span style={{ color: '#46d369', fontWeight: 'bold' }}>{project.match} Match</span>
-              <span style={{ color: 'var(--text-secondary)' }}>{project.year}</span>
-              <span style={{ border: '1px solid rgba(255,255,255,0.4)', padding: '1px 5px', borderRadius: '3px', fontSize: '0.7rem', color: 'var(--text-secondary)', fontWeight: 600 }}>{project.type}</span>
-            </div>
-            <div style={{ display: 'flex', gap: '0.5rem' }}>
-              {project.github && (
-                <a href={project.github} target="_blank" rel="noopener noreferrer" style={{ width: '32px', height: '32px', borderRadius: '50%', background: 'rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', transition: 'background 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.2)'} onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.1)'}>
-                  <Github size={16} />
-                </a>
-              )}
-              {project.link && (
-                <a href={project.link} target="_blank" rel="noopener noreferrer" style={{ width: '32px', height: '32px', borderRadius: '50%', background: 'rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', transition: 'background 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.2)'} onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.1)'}>
-                  <ExternalLink size={16} />
-                </a>
-              )}
-            </div>
-          </div>
-
-          {/* Details revealed on hover */}
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ 
-              height: isHovered ? 'auto' : 0, 
-              opacity: isHovered ? 1 : 0 
-            }}
-            transition={{ duration: 0.2 }}
-            style={{ overflow: 'hidden' }}
-          >
-            <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: '1.5', margin: '0.5rem 0 1rem 0' }}>
-              {project.description}
-            </p>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
-              {project.tags.map(tag => (
-                <span key={tag} style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: 'var(--text-secondary)', padding: '3px 10px', borderRadius: '12px', fontSize: '0.75rem' }}>
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </motion.div>
+        {/* Footer links */}
+        <div style={{ 
+          display: 'flex', 
+          justifyContent: 'flex-end', 
+          gap: '0.8rem', 
+          borderTop: '1px solid var(--card-border)', 
+          paddingTop: '0.8rem',
+          marginTop: 'auto'
+        }}>
+          {project.github && (
+            <a href={project.github} target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.85rem', color: 'var(--text-secondary)', transition: 'color 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.color = '#fff'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-secondary)'}>
+              <Github size={16} /> Code
+            </a>
+          )}
+          {project.link && (
+            <a href={project.link} target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.85rem', color: 'var(--text-secondary)', transition: 'color 0.2s' }} onMouseEnter={(e) => e.currentTarget.style.color = '#fff'} onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-secondary)'}>
+              <ExternalLink size={16} /> Live
+            </a>
+          )}
         </div>
-      </motion.div>
+      </div>
     </motion.div>
   );
 }
@@ -180,7 +174,7 @@ function ProjectRow({ title, projects }) {
             display: 'flex',
             overflowX: 'auto',
             gap: '1.5rem',
-            padding: '1.5rem 0.5rem 3rem 0.5rem',
+            padding: '1.5rem 0.5rem 2rem 0.5rem',
             scrollbarWidth: 'none',
             msOverflowStyle: 'none',
           }}
@@ -230,21 +224,24 @@ function ProjectRow({ title, projects }) {
 
 function FeaturedBanner({ project }) {
   return (
-    <div style={{
-      position: 'relative',
-      width: '100%',
-      minHeight: '450px',
-      borderRadius: '16px',
-      overflow: 'hidden',
-      marginBottom: '5rem',
-      backgroundImage: project.image ? `url(${project.image})` : (project.gradient || 'linear-gradient(135deg, #e50914 0%, #000 100%)'),
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      display: 'flex',
-      alignItems: 'flex-end',
-      padding: '4rem',
-      boxShadow: 'inset 0 0 120px rgba(0,0,0,0.9)',
-    }}>
+    <div 
+      className="featured-banner"
+      style={{
+        position: 'relative',
+        width: '100%',
+        minHeight: '450px',
+        borderRadius: '16px',
+        overflow: 'hidden',
+        marginBottom: '5rem',
+        backgroundImage: project.image ? `url(${project.image})` : (project.gradient || 'linear-gradient(135deg, #e50914 0%, #000 100%)'),
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        display: 'flex',
+        alignItems: 'flex-end',
+        padding: '4rem',
+        boxShadow: 'inset 0 0 120px rgba(0,0,0,0.9)',
+      }}
+    >
       <div style={{
         position: 'absolute',
         inset: 0,
@@ -252,13 +249,13 @@ function FeaturedBanner({ project }) {
         zIndex: 1,
       }} />
 
-      <div style={{ zIndex: 2, maxWidth: '650px', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+      <div className="featured-content" style={{ zIndex: 2, maxWidth: '650px', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
           <span style={{ background: '#e50914', color: '#fff', fontSize: '0.8rem', fontWeight: 900, padding: '3px 8px', borderRadius: '3px', letterSpacing: '1px' }}>N</span>
           <span style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--text-secondary)', letterSpacing: '2px' }}>FEATURED PROJECT</span>
         </div>
         
-        <h1 style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontWeight: 800, color: '#fff', lineHeight: '1.1', textShadow: '0 2px 10px rgba(0,0,0,0.8)' }}>
+        <h1 className="featured-title" style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontWeight: 800, color: '#fff', lineHeight: '1.1', textShadow: '0 2px 10px rgba(0,0,0,0.8)' }}>
           {project.title}
         </h1>
 
@@ -269,11 +266,11 @@ function FeaturedBanner({ project }) {
           <span style={{ color: 'var(--cyan)', fontWeight: 600 }}>Top Pick</span>
         </div>
 
-        <p style={{ color: 'rgba(255,255,255,0.95)', fontSize: '1.1rem', lineHeight: '1.6', textShadow: '0 1px 3px rgba(0,0,0,0.8)' }}>
+        <p className="featured-desc" style={{ color: 'rgba(255,255,255,0.95)', fontSize: '1.1rem', lineHeight: '1.6', textShadow: '0 1px 3px rgba(0,0,0,0.8)' }}>
           {project.description}
         </p>
 
-        <div style={{ display: 'flex', gap: '1rem', marginTop: '1.5rem' }}>
+        <div className="featured-buttons" style={{ display: 'flex', gap: '1rem', marginTop: '1.5rem' }}>
           {project.github && (
             <a 
               href={project.github} 
@@ -331,17 +328,17 @@ export default function Projects() {
   const projects = [
     {
       id: 1,
-      title: 'CineMatch AI',
-      description: 'A hybrid movie recommendation engine modeled after Netflix\'s algorithms. Leverages Content-Based Filtering and SVD Collaborative Filtering to predict user ratings, integrated with the TMDB API for live data synchronization.',
-      tags: ['Python', 'Machine Learning', 'Cosine Similarity', 'React.js', 'TMDB API'],
-      github: 'https://github.com/Arun597134/Movie-Recommendation-System',
+      title: 'Connectra',
+      description: 'A high-performance real-time chat application featuring secure messaging channels, active presence status tracking, user profile settings, and full media attachment support. Designed for sub-millisecond delivery using WebSockets.',
+      tags: ['React.js', 'Node.js', 'Socket.io', 'MongoDB', 'TailwindCSS'],
+      github: 'https://github.com/Arun597134/Connectra',
       match: '98%',
       year: '2026',
-      type: 'AI & ML',
-      icon: Film,
-      color: '#e50914',
-      image: '/cinematch_backdrop.png',
-      gradient: 'linear-gradient(135deg, #e50914 0%, #111 100%)',
+      type: 'Real-Time App',
+      icon: MessageSquare,
+      color: '#00f0ff',
+      image: '/connectra_backdrop.png',
+      gradient: 'linear-gradient(135deg, #00f0ff 0%, #111 100%)',
       category: 'trending'
     },
     {
@@ -369,9 +366,9 @@ export default function Projects() {
       year: '2025',
       type: 'AI Agent',
       icon: Bot,
-      color: '#00f0ff',
+      color: '#8b5cf6',
       image: '/interview_backdrop.png',
-      gradient: 'linear-gradient(135deg, #00f0ff 0%, #111 100%)',
+      gradient: 'linear-gradient(135deg, #8b5cf6 0%, #111 100%)',
       category: 'trending'
     },
     {
@@ -399,19 +396,51 @@ export default function Projects() {
       year: '2025',
       type: 'Full Stack',
       icon: Award,
-      color: '#8b5cf6',
+      color: '#ec4899',
       image: '/assessment_backdrop.png',
-      gradient: 'linear-gradient(135deg, #8b5cf6 0%, #111 100%)',
+      gradient: 'linear-gradient(135deg, #ec4899 0%, #111 100%)',
       category: 'fullstack'
     }
   ];
 
+  const responsiveStyles = `
+    @media (max-width: 768px) {
+      .featured-banner {
+        padding: 2.5rem 1.5rem !important;
+        min-height: 450px !important;
+        align-items: center !important;
+        text-align: center !important;
+      }
+      .featured-content {
+        align-items: center !important;
+      }
+      .featured-title {
+        font-size: 2.2rem !important;
+      }
+      .featured-desc {
+        font-size: 1rem !important;
+      }
+      .featured-buttons {
+        width: 100% !important;
+        flex-direction: column !important;
+        gap: 0.8rem !important;
+      }
+      .featured-buttons a {
+        width: 100% !important;
+        justify-content: center !important;
+        padding: 10px 20px !important;
+      }
+    }
+  `;
+
   const trendingProjects = projects.filter(p => p.category === 'trending');
   const fullstackProjects = projects.filter(p => p.category === 'fullstack');
-  const featuredProject = projects[0]; // CineMatch AI
+  const featuredProject = projects[0]; // Connectra
 
   return (
     <section id="projects" className="section-container" style={{ padding: '8rem 2rem' }}>
+      <style>{responsiveStyles}</style>
+      
       <div className="section-subtitle">MY WORK</div>
       <h2 className="section-title gradient-title" style={{ marginTop: '0.5rem', marginBottom: '4rem' }}>
         <span>Proj</span><span>ects</span>
