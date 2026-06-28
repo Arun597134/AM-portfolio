@@ -2,8 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Github, Linkedin, Mail, MapPin, Send, CheckCircle2 } from 'lucide-react';
 
-// Replace this ID with your own Formspree ID (e.g. "xoqgypzo") when ready
-const FORMSPREE_FORM_ID = "xoqgypzo";
+const FORMSPREE_FORM_ID = "mpqgrkkw";
 
 export default function Contact() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
