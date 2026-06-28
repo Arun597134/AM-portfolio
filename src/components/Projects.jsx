@@ -271,9 +271,9 @@ function FeaturedBanner({ project }) {
         </p>
 
         <div className="featured-buttons" style={{ display: 'flex', gap: '1rem', marginTop: '1.5rem' }}>
-          {project.github && (
+          {project.link && (
             <a 
-              href={project.github} 
+              href={project.link} 
               target="_blank" 
               rel="noopener noreferrer" 
               style={{
@@ -291,12 +291,12 @@ function FeaturedBanner({ project }) {
               onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.85)'}
               onMouseLeave={(e) => e.currentTarget.style.background = '#fff'}
             >
-              <Play size={18} fill="#000" /> Watch Code / Demo
+              <Play size={18} fill="#000" /> Watch Demo
             </a>
           )}
-          {project.link && (
+          {project.github && (
             <a 
-              href={project.link} 
+              href={project.github} 
               target="_blank" 
               rel="noopener noreferrer" 
               style={{
@@ -315,7 +315,7 @@ function FeaturedBanner({ project }) {
               onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(109, 109, 110, 0.4)'}
               onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(109, 109, 110, 0.7)'}
             >
-              <Info size={18} /> Live Demo
+              <Github size={18} /> GitHub Code
             </a>
           )}
         </div>
@@ -332,6 +332,7 @@ export default function Projects() {
       description: 'A high-performance real-time chat application featuring secure messaging channels, active presence status tracking, user profile settings, and full media attachment support. Designed for sub-millisecond delivery using WebSockets.',
       tags: ['React.js', 'Node.js', 'Socket.io', 'MongoDB', 'TailwindCSS'],
       github: 'https://github.com/Arun597134/Connectra',
+      link: 'https://connectrachatting.netlify.app',
       match: '98%',
       year: '2026',
       type: 'Real-Time App',
