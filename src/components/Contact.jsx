@@ -2,10 +2,14 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Github, Linkedin, Mail, MapPin, Send, CheckCircle2 } from 'lucide-react';
 
+// Replace this ID with your own Formspree ID (e.g. "xoqgypzo") when ready
+const FORMSPREE_FORM_ID = "xoqgypzo";
+
 export default function Contact() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isError, setIsError] = useState(false);
   const [copied, setCopied] = useState(false);
 
   const handleInputChange = (e) => {
@@ -19,18 +23,34 @@ export default function Contact() {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) return;
     
     setIsSubmitting(true);
+    setIsError(false);
     
-    // Simulate successful form submission
-    setTimeout(() => {
+    try {
+      const response = await fetch(`https://formspree.io/f/${FORMSPREE_FORM_ID}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+
+      if (response.ok) {
+        setIsSuccess(true);
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        setIsError(true);
+      }
+    } catch (err) {
+      setIsError(true);
+    } finally {
       setIsSubmitting(false);
-      setIsSuccess(true);
-      setFormData({ name: '', email: '', message: '' });
-    }, 1500);
+    }
   };
 
   const responsiveStyles = `
@@ -250,6 +270,12 @@ export default function Contact() {
                     onChange={handleInputChange}
                   />
                 </div>
+
+                {isError && (
+                  <p style={{ color: '#ef4444', fontSize: '0.85rem', fontWeight: 600, marginTop: '0.5rem', textAlign: 'center' }}>
+                    Something went wrong. Please check your connection or try again.
+                  </p>
+                )}
 
                 <motion.button 
                   type="submit" 
