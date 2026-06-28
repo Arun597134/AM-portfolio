@@ -335,7 +335,7 @@ export default function Projects() {
       title: 'Connectra',
       description: 'A high-performance real-time chat application featuring secure messaging channels, active presence status tracking, user profile settings, and full media attachment support. Designed for sub-millisecond delivery using WebSockets.',
       tags: ['React.js', 'Node.js', 'Socket.io', 'MongoDB', 'TailwindCSS'],
-      github: 'https://github.com/Arun597134/Connectra',
+      github: 'https://github.com/Arun597134/Connectra-',
       link: 'https://connectrachatting.netlify.app',
       match: '98%',
       year: '2026',
